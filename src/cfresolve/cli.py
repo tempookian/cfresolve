@@ -48,7 +48,9 @@ class ResolveResult(BaseModel):
 
 
 console = Console()
-dt_str = datetime.datetime.now(tz=datetime.UTC).strftime(r"%Y%m%d_%H%M%S")
+dt_str = datetime.datetime.now(tz=datetime.timezone.utc).strftime(
+    r"%Y%m%d_%H%M%S"
+)
 
 
 class TabularProgress(Progress):
