@@ -1,0 +1,118 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cfresolve"
+authors = [{ name = "tempookian", email = "tempookian@gmail.com" }]
+description = "Pings domains that use cloudflare to retrieve edge ips"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+  "Operating System :: OS Independent",
+]
+dependencies = ["polars", "rich_click", "pydantic", "validators"]
+dynamic = ["version"]
+
+[project.urls]
+"Homepage" = "https://github.com/tempookian/cfresolve/"
+"Bug Tracker" = "https://github.com/tempookian/cfresolve/issues"
+
+[project.scripts]
+cfresolve = "cfresolve:app"
+
+[tool.setuptools_scm]
+version_file = "src/cfresolve/_version.py"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+output-format = "grouped"
+show-fixes = true
+extend-exclude = ["*venv*/", "*.bak.*", "temp.py"]
+src = ["src", "tests"]
+
+[tool.ruff.format]
+docstring-code-format = false
+docstring-code-line-length = 60
+quote-style = "double"
+
+[tool.ruff.lint]
+task-tags = ["TODO", "FIXME", "XXX", "NOTE", "BUG", "HACK", "CHANGE ME"]
+select = [
+  "A",     # flake8-builtins
+  "AIR",   # Airflow
+  "ANN",   # flake8-annotations
+  "ARG",   # flake8-unused-arguments
+  "ASYNC", # flake8-async
+  "B",     # flake8-bugbear
+  "BLE",   # flake8-blind-except
+  "C4",    # flake8-comprehensions
+  "C90",   # mccabe
+  "DJ",    # flake8-django
+  "DTZ",   # flake8-datetimez
+  "E",     # pycodestyle
+  "EM",    # flake8-errmsg
+  "ERA",   # flake8-eradicate
+  "EXE",   # flake8-executable
+  "F",     # pyflakes
+  "FA",    # flake8-future-annotations
+  "FBT",   # flake8-boolean-trap
+  "FLY",   # flynt
+  "G",     # flake8-logging-format
+  "I",     # isort
+  "ICN",   # flake8-import-conventions
+  "INP",   # flake8-no-pep420
+  "INT",   # flake8-gettext
+  "N",     # pep8-naming
+  "NPY",   # NumPy-specific rules
+  "PD",    # flake8-vet
+  "PERF",  # Perflint
+  "PGH",   # pygrep-hooks
+  "PIE",   # flake8-pie
+  "PLC",   # Pylint - Convention
+  "PLE",   # Pylint - Error
+  "PLR",   # Pylint - Refactor
+  "PLW",   # Pylint - Warning
+  "PT",    # flake8-pytest-style
+  "PTH",   # flake8-use-pathlib
+  "PYI",   # flake8-pyi
+  "Q",     # flake8-quotes
+  "RET",   # flake8-return
+  "RUF",   # Ruff-specific rules
+  "RSE",   # flake8-raise
+  "S",     # flake8-bandit
+  "SLF",   # flake8-self
+  "SLOT",  # flake8-slots
+  "SIM",   # flake8-simplify
+  "T20",   # flake8-print
+  "TCH",   # flake8-type-checking
+  "TID",   # flake8-tidy-imports
+  "TRY",   # tryceratops
+  "UP",    # pyupgrade
+  "W",     # pycodestyle
+  "YTT",   # flake8-2020
+]
+
+ignore = ["ANN101", "ANN102"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**" = [
+  "ARG",     # unused arguments
+  "PLR0913", # Too many arguments to function call
+  "PLR2004", # Magic value comparison
+  "S101",    # assert used
+  "SLF001",  # Private member accessed
+]
+"**/tests/**/*_test.py" = [
+  "FBT001", # Boolean positional arg in function definition
+]
+"__init__.py" = [
+  "D104",    # Missing docstring in public package
+  "PLC0414", # useless-import-alias
+]
