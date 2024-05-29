@@ -6,6 +6,7 @@ from enum import Enum
 from pathlib import Path
 
 import polars as pl
+import requests
 import rich_click as click
 from pydantic import BaseModel
 from rich.console import Console, ConsoleRenderable, Group, RichCast
@@ -165,6 +166,18 @@ def resolve_domain(
     type=click.Path(),
 )
 def app(domains_path: Path, output_path: Path) -> None:
+    if domains_path is None:
+        domains_path = Path.cwd() / "domains.csv"
+        if domains_path.exists():
+            console.log(f"Domains file exit: {domains_path}")
+        else:
+            r = requests.get(
+                "https://raw.githubusercontent.com/tempookian/"
+                "cfresolve/master/assets/domains.csv",
+                timeout=10,
+            )
+            domains_path.write_text(r.text)
+
     if output_path is None:
         output_path = Path.cwd() / "results" / f"{dt_str}.csv"
     elif Path(output_path).exists():

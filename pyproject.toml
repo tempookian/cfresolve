@@ -13,7 +13,7 @@ classifiers = [
   "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
   "Operating System :: OS Independent",
 ]
-dependencies = ["polars", "rich_click", "pydantic", "validators"]
+dependencies = ["polars", "rich_click", "pydantic", "validators", "requests"]
 dynamic = ["version"]
 
 [project.urls]
