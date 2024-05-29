@@ -3,4 +3,6 @@ _version.py
 *.egg-info/
 temp.*
 results/
-.vscode/
+.vscode
+dist/
+
